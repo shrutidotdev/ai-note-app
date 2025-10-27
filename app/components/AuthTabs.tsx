@@ -22,26 +22,26 @@ export function AuthTabs() {
 
         <TabsContent value="signin">
           <div className="w-full p-8 space-y-8 bg-card rounded-lg shadow-lg">
-            <div className="text-center space-y-2">
+            {/* <div className="text-center space-y-2">
               <h1 className="text-3xl font-bold text-card-foreground">Login</h1>
               <p className="text-muted-foreground">
                 Enter your credentials to access your account.
               </p>
-            </div>
+            </div> */}
             <SignInForm />
           </div>
         </TabsContent>
 
         <TabsContent value="signup">
           <div className="w-full p-8 space-y-8 bg-card rounded-lg shadow-lg">
-            <div className="text-center space-y-2">
+            {/* <div className="text-center space-y-2">
               <h1 className="text-3xl font-bold text-card-foreground">
                 Create Account
               </h1>
               <p className="text-muted-foreground">
                 Enter your details to create a new account.
               </p>
-            </div>
+            </div> */}
             <SignUpForm />
           </div>
         </TabsContent>
