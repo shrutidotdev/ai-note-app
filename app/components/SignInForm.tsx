@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AuthFormValues, signinSchema } from "../schemas/authsignin";
+import { toast } from "sonner";
 
 interface SignInFormProps {
   onSwitchToSignUp?: () => void;
@@ -46,10 +47,14 @@ export function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
         password: values.password,
         flow: "signIn",
       });
+
+      toast.success("✅Successfully signed in!");
+      
       router.push("/notes");
     } catch (err) {
+      toast.error("❌Failed to sign in.");
       console.error("Sign in error:", err);
-      setError("Invalid email or password.");
+      setError("👀Invalid email or password.");
     } finally {
       setLoading(false); 
     }
