@@ -1,5 +1,9 @@
 "use client";
 
+import { useAuthActions } from "@convex-dev/auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { PasswordInput } from "../components/PasswordInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +24,11 @@ interface SignUpFormProps {
 }
 
 export function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
+  const { signIn } = useAuthActions(); 
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null); 
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<AuthFormValues>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -29,8 +38,23 @@ export function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
   });
 
   async function onSubmit(values: AuthFormValues) {
-    // TODO: Sign up
-    console.log("Sign up values", values);
+    setError(null);
+    setLoading(true);
+
+    try {
+      await signIn("password", {
+        email: values.email,
+        password: values.password,
+        flow: "signUp", 
+      });
+      router.push("/notes");
+    } catch (err) {
+      console.error("Sign up error:", err);
+      
+      setError("Failed to create account. Email may already be in use.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -45,8 +69,10 @@ export function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
               Enter your details to create a new account.
             </p>
           </div>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Email */}
               <FormField
                 control={form.control}
                 name="email"
@@ -58,12 +84,15 @@ export function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
                         placeholder="you@example.com"
                         {...field}
                         type="email"
+                        disabled={loading}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {/* Password */}
               <FormField
                 control={form.control}
                 name="password"
@@ -71,28 +100,37 @@ export function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder="Password" {...field} />
+                      <PasswordInput
+                        placeholder="Password"
+                        {...field}
+                        disabled={loading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {form.formState.errors.root && (
-                <div className="text-sm text-destructive">
-                  {form.formState.errors.root.message}
+
+              
+              {error && (
+                <div className="text-sm text-destructive text-center">
+                  {error}
                 </div>
               )}
-              <Button type="submit" className="w-full">
-                Sign Up
+
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Creating account..." : "Sign Up"}
               </Button>
             </form>
           </Form>
+
           {onSwitchToSignIn && (
             <Button
               variant="link"
               type="button"
               className="w-full text-sm text-muted-foreground cursor-pointer"
               onClick={onSwitchToSignIn}
+              disabled={loading}
             >
               Already have an account? Sign In
             </Button>
