@@ -2,8 +2,10 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="dark:bg-black min-h-screen flex flex-col items-center justify-center p-24">
-      <h1>Hi there its me shruti</h1>
+    <main className=" min-h-screen flex flex-col items-center justify-center p-24">
+      <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+      Taxing Laughter: The Joke Tax Chronicles
+    </h1>
     </main>
   );
 }
