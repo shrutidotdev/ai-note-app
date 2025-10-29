@@ -1,30 +1,21 @@
-import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardAction,
-    CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useRouter } from "next/navigation";
 
-const NoteCard = ({ title, content}: { title: string; content: string }) => {
+
+const NoteCard = ({ id, title, content }: { id: string; title: string; content: string }) => {
+    const router = useRouter()
     return (
-        <Card>
+        <Card onClick={() => router.push(`/notes/${id}`)} className="cursor-pointer hover:shadow-lg transition-shadow duration-200 ease-in-out">
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{content}</CardDescription>
-                <CardAction>Card Action</CardAction>
             </CardHeader>
-            <CardContent>
-                <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-                <p>Card Footer</p>
-            </CardFooter>
+
         </Card>
     )
 }

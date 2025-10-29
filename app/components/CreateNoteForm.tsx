@@ -69,7 +69,7 @@ const CreateNoteForm = () => {
     }
 
     return (
-      <div className="py-5 px-8 w-full">
+     
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <CreateNoteBtn />
@@ -137,7 +137,7 @@ const CreateNoteForm = () => {
                 </Form>
             </DialogContent>
         </Dialog>
-      </div>
+
     )
 }
 

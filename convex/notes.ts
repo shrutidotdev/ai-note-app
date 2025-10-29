@@ -39,3 +39,12 @@ export const getNotesByUser = query({
                         .collect();
     }
 })
+
+export const getNoteById = query({
+    args: {
+        id: v.id("notes") },
+        handler: async (ctx, args) => {
+            return await ctx.db.get(args.id);
+        }
+    }
+);

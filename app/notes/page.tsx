@@ -30,36 +30,33 @@ const NotesPage = () => {
   }
 
   return (
-    <div className='min-h-screen w-full'>
-      {/* Header Section */}
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6'>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center">
-          My Notes 📒
-        </h1>
-        <Separator />
-      </div>
+    <main className='min-h-screen'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        {/* Header Section */}
+        <div className='py-6 space-y-6'>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center">
+            My Notes 📒
+          </h1>
+          <Separator />
+        </div>
 
-       {/* Create Note Form */}
-        <main>
+        {/* Create Note Button */}
+        <div className='py-5'>
           <CreateNoteForm />
-        </main>
+        </div>
 
-      {/* Main Content */}
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8'>
-        {/* Notes Grid */}
-        <section className='mb-8'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
-            {notes.map(({ title, content }, index) => (
-              <div key={`${title}-${index}`}>
-                <NoteCard title={title} content={content} />
+        {/* Notes Masonry Grid */}
+        <section className='pb-8'>
+          <div className='columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6'>
+            {notes.map(({ _id, title, content }) => (
+              <div key={_id} className='break-inside-avoid mb-4 md:mb-6'>
+                <NoteCard id={_id} title={title} content={content} />
               </div>
             ))}
           </div>
         </section>
-
-       
       </div>
-    </div>
+    </main>
   );
 }
 
