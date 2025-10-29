@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const NoteCard = ({ id, title, content }: { id: string; title: string; content: string }) => {
     const router = useRouter()
     return (
-        <Card onClick={() => router.push(`/notes/${id}`)} className="cursor-pointer hover:shadow-lg transition-shadow duration-200 ease-in-out">
+        <Card onClick={() => router.push(`/note/${id}`)} className="cursor-pointer hover:shadow-lg transition-shadow duration-200 ease-in-out">
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{content}</CardDescription>

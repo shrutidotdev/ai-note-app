@@ -48,3 +48,32 @@ export const getNoteById = query({
         }
     }
 );
+
+export const deleteNoteById = mutation({
+    args: { id: v.id("notes")},
+    handler: async(ctx, args) => {
+        await ctx.db.delete(args.id);
+    }
+})
+
+export const deleteAllNotes = mutation({
+   
+    handler: async(ctx) => {
+        const userId = await getAuthUserId(ctx);
+        if(!userId) {
+            throw new Error("Not authenticated");
+        }
+
+        // query all notes by user
+        const userNotes = await ctx.db
+            .query("notes") 
+            .withIndex("byUser", (q) => q.eq("userId", userId))
+            .collect();
+
+        for(const note of userNotes){
+            await ctx.db.delete(note._id);
+        }
+
+        return {deleteCount: userNotes.length};
+    }
+})
