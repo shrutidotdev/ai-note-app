@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AIChatBtn from "./components/AIChatBtn";
 
 export default function Home() {
   return (
@@ -6,6 +6,8 @@ export default function Home() {
       <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
       Taxing Laughter: The Joke Tax Chronicles
     </h1>
+
+    <AIChatBtn />
     </main>
   );
 }
