@@ -7,10 +7,11 @@ import { Bot, Expand, Minimize, Send, Trash, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { useChat } from '@ai-sdk/react';
 import {
-    DefaultChatTransport,
-} from 'ai';
+    DefaultChatTransport} from 'ai';
+import ChatMessage from "./ChatMessage";
 
-const convexSiteURL = process.env.NEXT_PUBLIC_CONVEX_URL?.replace(/.cloud$/, ".site");
+
+    const convexSiteURL = process.env.NEXT_PUBLIC_CONVEX_URL?.replace(/.cloud$/, ".site");
 
 interface AIChatBoxProps {
     open: boolean;
@@ -90,7 +91,7 @@ function AIChatBox({ open, onClose }: AIChatBoxProps) {
             <div className="flex-1 space-y-4 overflow-y-auto p-3">
                 {messages.map((message) => {
                     return (
-                        <p key={message.id}>{JSON.stringify(message)}</p>
+                       <ChatMessage key={message.id} message={message} />
                     )
                 })}
                 {/* TODO: Render messages here */}
@@ -115,3 +116,5 @@ function AIChatBox({ open, onClose }: AIChatBoxProps) {
 }
 
 export default AIChatBox;
+
+
